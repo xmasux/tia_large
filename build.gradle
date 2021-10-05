@@ -1,0 +1,56 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.teamscale:teamscale-gradle-plugin:17.0.0'
+    }
+}
+
+plugins {
+    id 'java'
+}
+
+apply plugin: 'teamscale'
+
+teamscale {
+
+    server {
+        url = 'http://localhost:8080/'
+        userName = 'admin'
+        userAccessToken = 'q4tu9vfAAjQZ1peCpPvQHSrLi5CeIcGY'
+        project = 'tia-junit5'
+    }
+
+    report {
+        partition = 'Unit Tests'
+        testwiseCoverage()
+    }
+
+}
+
+tasks.register('tiaTests', com.teamscale.TestImpacted)
+
+group 'eu.cqse.tutorials'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.5.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.5.2'
+}
+
+tasks.withType(Test) {
+    useJUnitPlatform()
+    testLogging {
+        exceptionFormat "short"
+        showCauses false
+        events "failed", "passed"
+    }
+}
+
