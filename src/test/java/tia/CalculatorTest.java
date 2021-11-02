@@ -50,4 +50,10 @@ public class CalculatorTest {
     public void testDivideFloat() {
         assertEquals(1.5, new Calculator().divideFloat(3, 2));
     }
+
+    /** Test comment. */
+    @Test
+    public void testDivideFloatAgain(){
+        assertEquals(1.5, new Calculator().divideFloat(3, 2));
+    }
 }
